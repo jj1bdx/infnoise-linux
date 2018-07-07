@@ -37,7 +37,7 @@ struct opt_struct {
                                // in microseconds
     bool daemon;               // Run as daemon?
     bool debug;                // Print debugging info?
-    bool devRandom;              // Feed /dev/random?
+    bool devRandom;            // Feed /dev/random?
     bool noOutput;             // Supress output?
     bool listDevices;          // List possible USB-devices?
     bool help;                 // Show help

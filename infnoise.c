@@ -94,7 +94,7 @@ static uint32_t processBytes(uint8_t *keccakState, uint8_t *bytes,
     if (opts->outputMultiplier == 0u) {
         // Output all the bytes of entropy we have
         KeccakExtract(keccakState, dataOut, (entropy + 63u) / 64u);
-        outputBytes(dataOut, entropy/8u, entropy & 0x7u, opts);
+        outputBytes(dataOut, entropy / 8u, entropy & 0x7u, opts);
         return entropy / 8u;
     }
 
@@ -272,20 +272,19 @@ static double diffTime(struct timespec *start, struct timespec *end) {
 
 // getopt_long(3) options descriptor
 
-static struct option longopts[] = {
-    {"raw", no_argument, NULL, 'r'},
-    {"debug", no_argument, NULL, 'D'},
-    {"dev-random", no_argument, NULL, 'R'},
-    {"no-output", no_argument, NULL, 'n'},
-    {"multiplier", required_argument, NULL, 'm'},
-    {"pidfile", required_argument, NULL, 'p'},
-    {"serial", required_argument, NULL, 's'},
-    {"wait-time", required_argument, NULL, 'w'},
-    {"daemon", no_argument, NULL, 'd'},
-    {"list-devices", no_argument, NULL, 'l'},
-    {"version", no_argument, NULL, 'v'},
-    {"help", no_argument, NULL, 'h'},
-    {NULL, 0, NULL, 0}};
+static struct option longopts[] = {{"raw", no_argument, NULL, 'r'},
+                                   {"debug", no_argument, NULL, 'D'},
+                                   {"dev-random", no_argument, NULL, 'R'},
+                                   {"no-output", no_argument, NULL, 'n'},
+                                   {"multiplier", required_argument, NULL, 'm'},
+                                   {"pidfile", required_argument, NULL, 'p'},
+                                   {"serial", required_argument, NULL, 's'},
+                                   {"wait-time", required_argument, NULL, 'w'},
+                                   {"daemon", no_argument, NULL, 'd'},
+                                   {"list-devices", no_argument, NULL, 'l'},
+                                   {"version", no_argument, NULL, 'v'},
+                                   {"help", no_argument, NULL, 'h'},
+                                   {NULL, 0, NULL, 0}};
 
 int main(int argc, char **argv) {
     struct ftdi_context ftdic;
@@ -297,8 +296,8 @@ int main(int argc, char **argv) {
     initOpts(&opts);
 
     // Process arguments
-    while ((ch = getopt_long(argc, argv, "rDRnm:p:s:w:dlvh",
-                    longopts, NULL)) != -1) {
+    while ((ch = getopt_long(argc, argv, "rDRnm:p:s:w:dlvh", longopts, NULL)) !=
+           -1) {
         switch (ch) {
         case 'r':
             opts.raw = true;
@@ -339,7 +338,9 @@ int main(int argc, char **argv) {
             waitTimeAssigned = true;
             int tmpWaitTime = atoi(optarg);
             if ((tmpWaitTime < 1) && (tmpWaitTime > 5000)) {
-                fputs("Wait time must be in the range between 1 to 5000 microseconds\n", stderr);
+                fputs("Wait time must be in the range between 1 to 5000 "
+                      "microseconds\n",
+                      stderr);
                 return 1;
             }
             opts.waitTime = tmpWaitTime;
@@ -378,7 +379,8 @@ int main(int argc, char **argv) {
               "    -p, --pidfile <file> - write process ID to file\n"
               "    -d, --daemon - run in the background\n"
               "    -s, --serial <serial> - use specified device\n"
-              "    -w, --wait-time <microseconds> - set wait time per each USB polling (1~5000)\n"
+              "    -w, --wait-time <microseconds> - set wait time per each USB "
+              "polling (1~5000)\n"
               "    -l, --list-devices - list available devices\n"
               "    -v, --version - show version information\n"
               "    -h, --help - this help output\n",
@@ -443,7 +445,7 @@ int main(int argc, char **argv) {
     startDaemon(&opts);
 
     if (opts.devRandom) {
-        inmWriteEntropyStart(BUFLEN/8u, &opts);
+        inmWriteEntropyStart(BUFLEN / 8u, &opts);
     }
 
     if (!inmHealthCheckStart(PREDICTION_BITS, DESIGN_K, &opts)) {
