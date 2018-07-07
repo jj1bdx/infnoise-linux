@@ -1,0 +1,6 @@
+#!/bin/sh
+
+systemctl --system daemon-reload
+systemctl enable infnoise
+
+service udev reload

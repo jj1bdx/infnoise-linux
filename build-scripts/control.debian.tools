@@ -1,0 +1,8 @@
+Package: infnoise-tools
+Essential: no
+Section: security 
+Depends: infnoise
+Priority: optional
+Maintainer: Manuel Domke
+Installed-Size: 12K
+Description: Infinite Noise TRNG tools
